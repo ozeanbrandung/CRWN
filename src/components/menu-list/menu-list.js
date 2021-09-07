@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 //redux
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import {getMenuToStore} from '../../redux/menu/menu-actions';
+//import {getMenuToStore} from '../../redux/menu/menu-actions';
 //reselect
 import { selectMenuSections } from '../../redux/menu/menu-selectors';
 import {createStructuredSelector} from 'reselect';
 //service provider
-import {withCrwnService} from '../../services/crown-provider/with-crwn-service';
+//import {withCrwnService} from '../../services/crown-provider/with-crwn-service';
 
 //CUSTOM COMPONENTS
 import MenuItem from '../menu-item/menu-item';
@@ -17,10 +17,10 @@ import './menu-list.scss';
 
 class MenuListContainer extends Component {
 
-    componentDidMount() {
+    //componentDidMount() {
         //this.props.dispatch(getMenuToStore(this.props.crwnService)) - это без передачи mdtp
-        this.props.fetchAndStoreMenuList();
-    }
+        //this.props.fetchAndStoreMenuList();
+   // }
   
     render(){
         return(
@@ -49,12 +49,12 @@ const mapStateToProps = createStructuredSelector({
     sections: selectMenuSections
 })
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-    fetchAndStoreMenuList: () => dispatch(
-                                    getMenuToStore(ownProps.crwnService)
-                                )
-})
+// const mapDispatchToProps = (dispatch, ownProps) => ({
+//     fetchAndStoreMenuList: () => dispatch(
+//                                     getMenuToStore(ownProps.crwnService)
+//                                 )
+// })
 export default compose(
-            withCrwnService(),
-            connect(mapStateToProps, mapDispatchToProps)
+            //withCrwnService(),
+            connect(mapStateToProps) //mapDispatchToProps
         )(MenuListContainer);

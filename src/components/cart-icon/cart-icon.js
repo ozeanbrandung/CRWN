@@ -18,6 +18,7 @@ const CartIcon = ({toggleCartHidden, itemsCount}) => (
 )
 
 const mapDispatchToProps = dispatch => ({
+    //не забывай () у action которому ничего не передаем, все-таки это функция
     toggleCartHidden: () => dispatch(toggleCartHidden())
 })
 

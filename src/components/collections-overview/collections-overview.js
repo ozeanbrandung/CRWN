@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 //redux
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import {getShopToStore} from '../../redux/shop/shop-actions';
+//import {getShopToStore} from '../../redux/shop/shop-actions';
 //HOC обеспечивающий доступ к crwnService - истансу класса CrwnService
-import { withCrwnService } from '../../services/crown-provider/with-crwn-service';
+//import { withCrwnService } from '../../services/crown-provider/with-crwn-service';
 //reselect
 import { selectShopSections } from '../../redux/shop/shop-selectors';
 import {createStructuredSelector} from 'reselect';
@@ -15,10 +15,10 @@ import CollectionPreview from '../collection-preview/collection-preview';
 import './collections-overview.scss';
 
 class CollectionsOverviewContainer extends Component {
-    componentDidMount() {   
-        this.props.fetchAndStoreShop()
+    //componentDidMount() {   
+        //this.props.fetchAndStoreShop()
         //this.props.dispatch(getShopToStore(this.props.crwnService)) - это без mdtp
-    }
+    //}
 
     render(){
         return(
@@ -44,15 +44,15 @@ const mapStateToProps = createStructuredSelector({
 
 //ownProps - props которые УЖЕ были у копонента до его connect-а
 //нужно нам, чтобы получить доступ к сервису! переданному провайдером
-const mapDispatschToProps = (dispatch, ownProps) => ({
+//const mapDispatschToProps = (dispatch, ownProps) => ({
     //getShopToStore - thunk - которая получает сначала shop от сервера
     //а потом dispatch-ит его сразу же в store
     //на вход ей нужно подать сервис 
-    fetchAndStoreShop: () => dispatch(getShopToStore(ownProps.crwnService))
-})
+    //fetchAndStoreShop: () => dispatch(getShopToStore(ownProps.crwnService))
+//})
 
 export default compose(
-    withCrwnService(),
-    //ессли не передать mdtp то он автоматически передастся в компонент
-    connect(mapStateToProps, mapDispatschToProps)
+    //withCrwnService(),
+    //если не передать mdtp то он автоматически передастся в компонент
+    connect(mapStateToProps)
 )(CollectionsOverviewContainer)

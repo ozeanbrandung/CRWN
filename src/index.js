@@ -11,6 +11,8 @@ import {PersistGate} from 'redux-persist/integration/react';
 import { CrwnServiceProvider } from './services/crown-provider/crwn-service-context';
 //наш собственный сервис получения данных с сервера
 import CrwnServise from './services/crwn-service';
+//Компонент, отлавливающий ошибки
+import ErrorBoundry from './components/error-boundry/error-boundry';
 
 //app
 import App from './app';
@@ -24,11 +26,13 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <CrwnServiceProvider value={crwnService}>
-        <Router>
-          <PersistGate persistor={persistor}>
-            <App />
-          </PersistGate>
-        </Router>
+        <ErrorBoundry>
+          <Router>
+            <PersistGate persistor={persistor}>
+              <App />
+            </PersistGate>
+          </Router>
+        </ErrorBoundry>
       </CrwnServiceProvider>
     </Provider>
   </React.StrictMode>,

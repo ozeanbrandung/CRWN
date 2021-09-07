@@ -1,8 +1,11 @@
 import React, { Component, Fragment } from 'react';
 //Redux
 import {connect} from 'react-redux'
+import { compose } from 'redux';
 //action
 import {setCurrentUser} from './redux/user/user-actions';
+import {getShopToStore} from './redux/shop/shop-actions';
+import {getMenuToStore} from './redux/menu/menu-actions';
 //reselect lib
 import { selectCurrentUser } from './redux/user/user-selector';
 import {createStructuredSelector} from 'reselect';
@@ -10,14 +13,18 @@ import {createStructuredSelector} from 'reselect';
 import {Route, Switch, Redirect} from 'react-router-dom';
 //Firebase
 import {auth, createUserProfileDocument} from './firebase/firebase.utils';
+//servise
+import { withCrwnService } from './services/crown-provider/with-crwn-service';
 //CUSTOM COMPONENTS
 import Header from './components/header/header';
 import Homepage from './pages/homepage/homepage';
 import ShopPage from './pages/shop/shop';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up';
 import CheckoutPage from './pages/checkout/checkout';
+
 //SCSS
 import './app.scss';
+
 
 class App extends Component {
 
@@ -55,6 +62,12 @@ class App extends Component {
             setCurrentUser(userAuth)
         }
     })
+
+    //именно здесь получаем наш магазин и добавляем его в store
+    //т.к. с главного меню нам нужно уже попадать в разделы магазина, а также
+    //по ссылке в url
+    this.props.fetchAndStoreMenuList();
+    this.props.fetchAndStoreShop()
   }
 
   componentWillUnmount() {
@@ -82,15 +95,24 @@ class App extends Component {
   }
 }
 
-const mapDispatschToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+const mapDispatschToProps = (dispatch, ownProps) => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user)), 
+  fetchAndStoreShop: () => dispatch(getShopToStore(ownProps.crwnService)),
+  fetchAndStoreMenuList: () => dispatch(
+                                  getMenuToStore(ownProps.crwnService)
+                              )
 })
 
 //деструктурируем user-а из state: {user}
 //вместо этого используем selector
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  //loading: selectMenuLoading, 
+  //error: selectMenuError
 })
 
-export default connect(mapStateToProps, mapDispatschToProps)(App);
+export default compose(
+  withCrwnService(),
+  connect(mapStateToProps, mapDispatschToProps)
+)(App)
 //если надо передать только MDTP: connect(null, mapDispatschToProps)(App)

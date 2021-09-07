@@ -7,6 +7,16 @@ export const selectShopSections = createSelector(
     shop => shop.collections
 )
 
+export const selectShopLoading = createSelector(
+    [selectShop], 
+    shop => shop.loading
+)
+
+export const selectShopError = createSelector(
+    [selectShop], 
+    shop => shop.error
+)
+
 //какая-то ебанутая хуйня но этот объект типа того понадобился 
 //чтобы сделать соответсвие между названием коллекции в url
 //и id коллекции в дате, которую получаем с сервака
