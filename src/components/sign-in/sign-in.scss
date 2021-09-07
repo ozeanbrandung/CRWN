@@ -1,0 +1,17 @@
+.sign-in {
+    display: flex;
+    flex-direction: column;
+    //justify-content: space-between;
+    width: 380px;
+    //line-height: 2rem;
+    .title{
+        margin: 10px 0;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 3.5rem;
+    }
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+    }
+}

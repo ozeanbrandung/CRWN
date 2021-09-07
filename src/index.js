@@ -1,17 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+//Router
+import {BrowserRouter as Router} from 'react-router-dom'
+//Redux
+import {Provider} from 'react-redux';
+//наш store и PERSIST - для сохранения сессии shopping cart!
+import {store, persistor} from './redux/store';
+import {PersistGate} from 'redux-persist/integration/react';
+//наш собственный провайдер нашего же сервиса получения данных с сервера
+import { CrwnServiceProvider } from './services/crown-provider/crwn-service-context';
+//наш собственный сервис получения данных с сервера
+import CrwnServise from './services/crwn-service';
+
+//app
+import App from './app';
+//null scss
+import './index.scss';
+
+//создаем инстанс сервиса
+const crwnService = new CrwnServise();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <CrwnServiceProvider value={crwnService}>
+        <Router>
+          <PersistGate persistor={persistor}>
+            <App />
+          </PersistGate>
+        </Router>
+      </CrwnServiceProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+

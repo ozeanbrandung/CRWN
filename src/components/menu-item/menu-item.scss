@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
+
+.menu-item {
+    cursor: pointer;
+    min-width: 30%;
+    height: 240px;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 7.5px 15px;
+    //все что выходит за пределы этого дива будет обрезано!
+    overflow: hidden;
+  
+    &:first-child {
+      margin-right: 7.5px;
+    }
+  
+    &:last-child {
+      margin-left: 7.5px;
+    }
+    //этот стиль динамически передали из state!
+    &.large{
+      height: 380px;
+    }
+
+    .bg-img {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      &:hover {
+        transform: scale(1.1);
+        //target - transform, time - 4s, cubic-bezier - работает и без него,
+        //но он определяет скорость трансформации? ее мягкость?
+        transition: transform 4s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+      }
+    }
+  
+    .content {
+      //чтобы не съезжала вбок от картинки, вырываем именно контент из контекста 
+      //общего контейнера
+      position: absolute;
+      //font-family: 'Open Sans Condensed', sans-serif;
+      text-transform: uppercase;
+      height: 90px;
+      padding: 0 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: white;
+      opacity: .7;
+  
+      .title {
+        font-weight: bold;
+        margin-bottom: 6px;
+        font-size: 22px;
+        color: #4a4a4a;
+      }
+  
+      .subtitle {
+        font-weight: lighter;
+        font-size: 16px;
+      }
+    }
+  }

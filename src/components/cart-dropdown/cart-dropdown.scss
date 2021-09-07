@@ -1,0 +1,48 @@
+.cart-dropdown {
+    position: absolute;
+    width: 240px;
+    height: 340px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border: 1px solid black;
+    background-color: white;
+    top: 90px;
+    right: 40px;
+    z-index: 5;
+
+    .empty-message {
+      font-size: 18px;
+      margin: 50px auto;
+    }
+  
+    .cart-items {
+      height: 240px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: scroll;
+      overflow-x: hidden;
+
+        &::-webkit-scrollbar {
+          width: 10px;
+        }
+        
+        &::-webkit-scrollbar-track {
+          //инчае видно этот трек даже когда нет содежимого и переполнения
+          //background-color: black;
+          //background-color: #e4e4e4;
+          border-radius: 100px;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+          border-radius: 100px;
+          background-image: linear-gradient(180deg, #d4c0ba 0%, #7d9fb3 99%);
+          box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+        }
+    }
+  
+    button {
+      margin-top: auto;
+    }
+  }
+  
